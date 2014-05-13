@@ -1,0 +1,23 @@
+
+<fop version="1.0">
+	<renderers>
+		<renderer mime="application/pdf">
+			<fonts>
+				<auto-detect/>
+			</fonts>
+		</renderer>
+	</renderers>
+	<fonts>
+		<directory recursive="true">/usr/share/fonts</directory>
+		<substitutions>
+			<substitution>
+				<from font-family="Times-Roman"/>
+				<to font-family="Courier"/>
+			</substitution>
+			<substitution>
+				<from font-family="FrutigerLight"/>
+				<to font-family="Times" font-weight="bold" font-style="italic"/>
+			</substitution>
+		</substitutions>
+	</fonts>
+</fop>

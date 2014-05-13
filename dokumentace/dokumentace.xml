@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE book PUBLIC "-//OASIS//DTD DocBook XML V5.0//EN" "http://docbook.org/xml/5.0/dtd/docbook.dtd">
+<book lang="en">
+	<bookinfo>
+		<title>CaverAnalyst</title>
+		<author>
+			<firstname>Jan</firstname>
+			<surname>Štourač</surname>
+		</author>
+		<author>
+			<firstname>Henrich</firstname>
+			<surname>Lauko</surname>
+		</author>
+		<author>
+			<firstname>Jiří</firstname>
+			<surname>Novotný</surname>
+		</author>
+		<author>
+			<firstname>Karel</firstname>
+			<surname>Kubíček</surname>
+		</author>
+	</bookinfo>
+	<preface>
+		<title>Introduction</title>
+		<para>This project for PB138 Modern Markup Languages and Their Applications is part of project Caver developed in Human Computer Interaction Laboratory. Our goal was to rebuild module Color, which is responsible for visualization of molecules using xml configuration files.</para>
+		<section>
+			<title>About Caver</title>
+			<para>CAVER project aims to provide biochemists with easy-to-use tool for protein analysis, visualization and further evaluation of results.</para>
+			<para>The main feature of the application is computation of tunnels in proteins. Tunnels are pathways leading from the outer environment to a specific site deeply buried inside protein. This site is called a binding (or active) site and atoms around this site are able to react and bind with other structures. Thus tunnels are utilized for transporting small molecules of substrate (ligands, ions) into the active site where a chemical reaction can be performed and products of such reaction are again transported out of the protein via tunnels and can form a basis of new medications or other important chemical compounds.</para>
+			<para>Computation of tunnels and analysis of their bottlenecks (e.g. the narrowest site of the tunnel) can predict if a substrate can follow these tunnels and get to the active site. If not, these cases do not have to be studied in laboratories which substantially decreases the time spent in labs on experiments with impossible cases.</para>
+			<para>(Taken from official Caver wiki)</para>
+		</section>
+	</preface>
+	<chapter>
+		<title>Project process</title>
+		<itemizedlist>
+			<listitem>Meeting with CAVER team (21.3. 2014) - Discussion about posible XML developements in CAVER, decomposition of assigments to team members</listitem>
+			<listitem>Project developement (22.3. - 11.4. 2014) - Intensive work on assigments on by own, with small meetings on problems that occurs during developement. Making small chcanges to first scheme of project to improve usability.</listitem>
+			<listitem>Finishing project (12.4. - 20.4.2014) - Final debugging and testing.</listitem>
+			<listitem>Documentation and presentation (21.4 - 27.4. 2014) - Finishing documentation, wiki and preparing presentation.</listitem>
+			<listitem>Expected end of developement 4.5. 2014</listitem>
+		</itemizedlist>
+	</chapter>
+	<chapter>
+		<title>Assigment characterization</title>
+		<itemizedlist>
+			<listitem>Color schemes GUI
+				<itemizedlist>
+					<listitem>implemented by Henrich Lauko</listitem>
+					<listitem>Work included GUI blueprint</listitem>
+					<listitem>Implementation of package com.caver.controller.selection.color - used for user control of color schemes</listitem>
+					<listitem>Implementation of package com.caversoft.color.gui - used for coloring panels and dialogs</listitem>
+					<listitem>Implementation of import and export of user color schemes</listitem>
+				</itemizedlist>
+			</listitem>
+
+			<listitem>Color schemes backend
+				<itemizedlist>
+					<listitem>Implemented by Jan Štourač</listitem>
+					<listitem>Unified interface for access to color schemes</listitem>
+					<listitem>Only one manager for the whole application</listitem>
+					<listitem>Can notify listeners about changes in color schemes</listitem>
+					<listitem>Implementation of class com.caversoft.color.ColorSchemeManager – manager of color schemes</listitem>
+					<listitem>Implementation of class com.caversoft.color.ColorSchemelistener – listener for notifications</listitem>
+				</itemizedlist>
+			</listitem>
+
+    	<listitem>Color schemes XML structure and xsd
+				<itemizedlist>
+					<listitem>Implemented by Karel Kubíček</listitem>
+					<listitem>Create xsd for color schemes used in verification of correct import and export</listitem>
+					<listitem>Create structure of xml for efficient storing of color schemes containing:
+						<itemizedlist>
+							<listitem>Definition of coloring strategy in each color scheme</listitem>
+							<listitem>Definition of default color schemes and user color schemes</listitem>
+							<listitem>Storing informatiopn of colorin channels</listitem>
+						</itemizedlist>
+					</listitem>
+				</itemizedlist>
+			</listitem>
+
+    	<listitem>Global settings
+				<itemizedlist>
+					<listitem>implemented by Jiří Novotný</listitem>
+					<listitem>refactor, remake and fix existing service responsible for global settings</listitem>
+					<listitem>fix existing bugs
+						<itemizedlist>
+							<listitem>resolve charset problem with settings</listitem>
+							<listitem>resolve uninteded overwriting of setting values</listitem>
+							<listitem>resolve conficts in setting identifiers</listitem>
+						</itemizedlist>
+					</listitem>
+					<listitem>make better loading and storing of settings from/to xml document</listitem>
+					<listitem>make xsd specification to xml file containing settings</listitem>
+				</itemizedlist>
+			</listitem>
+		</itemizedlist>
+	</chapter>
+	<chapter id="configuration">
+		<title>Configuration module</title>
+		<para>The Caver Analyst is an application based of a modular design. One of these modules, specifically the Configuration module, is, responsible for all application global settings. These settings are then stored into an XML file and preserved across multiple launches of the application. The XML file is located in user home directory, so the settings stored are user specific. In other words, every module can store some data thought Configuration module under some identifier and then access them, when the application restarts.</para>
+		<para>The previous version of this module had several problems.  There was a few design issues and several implementation issues.  In my work a I have had to do some reinventing of module behavior in order to fix these issues.</para>
+		<para>The first issue was concerned about unintended overwriting of settings values, that had been recovered from the XML file. In original design in order to store a data you have had to call introduceParameter method and than setParameter method. The fist method reserved the data identifier in order to prevent identifier conflicts between other modules. If there was a conflict the exception has been thrown. If not the default value has been stored. These behavior resulted in overwriting the setting recovered from XML file to default values.</para>
+		<para>I have removed the conflict checking (because it is basically a code written by a programmer against the programmers performed at run-time), changed the behavior of introduceParametr to only if there is no parameter present then create one and set its value to default.</para>
+		<para>The second issue involved misinterpretation of some characters in the XML settings file when it was opened by a browser.  It has shown up, that even if the document was in valid UTF-8 form, the missing XML header with proper charset definition was responsible for it. I fixed it by adding the XML header each time, when output of the settings to the file was performed.</para>
+		<para>In order to make the XML file XSD 1.0 compatible and to provide checking of uniqueness of setting keys, the basic structure of the XML file had to be changed. The original XML file, generated by om.thoughtworks.xstream package, had each record of settings stored as:
+		<screen><![CDATA[
+<entry>
+	<string>key</string>
+	<”data-type”>value</”data-type”>   <!-- “data-type” is an arbitrary java class name -->
+</entry>]]></screen>
+		</para>
+		<para>XSD 1.0 do not permits XPath predicates in key definition and in the old layout was the key stored in the first <code><![CDATA[<string>]]></code> element of <code><![CDATA[<entry>]]></code> sequence (the <code><![CDATA[<“data-type”>]]></code> element could be also a <code><![CDATA[<string>]]></code>).</para>
+		<para>The com.thoughtworks.xstream package automates the serialization of java objects to an XML form. It provides an API to create a template for “how each java class will by serialized”, so the structure of generated XML can by easily changed. The new structure of the settings XML file is:
+<screen><![CDATA[
+<entry key=”key”>
+	<”data-type”>value</”data-type”>
+</entry>]]></screen>
+		</para>
+		<para>This corrected structure allows to be XSD 1.0 specification created and to check the uniqueness of the keys.</para>
+		<para>In the final stage the XSD to XML settings file generated by Configuration module was made.</para>
+	</chapter>
+	<chapter>
+		<title></title>
+		<para>File colorSchemes.xsd in caver_analyst/color/resources.xml is responsible for correct save and load operation for user setting of coloring of molecule. Settings are available as coloring strategy and allows to color each element, group of elements or by electric charge and so.</para>
+		<para>File colorSchemes.xml contains these xml elements:
+			<itemizedlist>
+				<listitem>
+					<simpara><code><![CDATA[<root>]]></code> with attribute of its xsd file for verification. It has to contain at least 1 element <code><![CDATA[<scheme>]]></code></simpara>
+				</listitem>
+				<listitem><code><![CDATA[<scheme>]]></code> with attributes "type", "strategy" and "name". Attribute "type" is of type string and could contain only values enumerated in xs:simpleType "schemeType".</listitem>
+			</itemizedlist>
+		</para>
+		<para>Attribute "strategy" is defined analogously as "type" and has its simple type "schemeStrategy". Attribute "name" speaks for itself. Users could create their own schema, which leads to creation of new tag <code><![CDATA[<scheme>]]></code> with selected type, strategy and name.</para>
+		<para>Each element <code><![CDATA[<scheme>]]></code> contains at least one element <code><![CDATA[<color>]]></code>. It has 4 attributes, each is required. First attribute "id" contains number of element or group of elements and is unique in <code><![CDATA[<scheme>]]></code>. Three others attributes represents RGB coloring of element. For each channel value 0 to 1 is allowed. Usually written with precision on 3 digits, but it is not strict.</para>
+	</chapter>
+
+</book>
+
+
