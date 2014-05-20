@@ -4,6 +4,32 @@
 \usepackage[T1]{fontenc}
 \usepackage[utf8]{inputenc}
 \usepackage{graphicx}
+%%XML highlight
+\usepackage{listings}
+\usepackage{color}
+\definecolor{gray}{rgb}{0.4,0.4,0.4}
+\definecolor{darkblue}{rgb}{0.0,0.0,0.6}
+\definecolor{cyan}{rgb}{0.0,0.6,0.6}
+
+\lstset{
+  basicstyle=\ttfamily,
+  columns=fullflexible,
+  showstringspaces=false,
+  commentstyle=\color{gray}\upshape
+}
+
+\lstdefinelanguage{XML}
+{
+  morestring=[b]",
+  morestring=[s]{>}{<},
+  morecomment=[s]{<?}{?>},
+  morecomment=[s]{<!--}{-->},
+  stringstyle=\color{black},
+  identifierstyle=\color{darkblue},
+  keywordstyle=\color{cyan},
+  morekeywords={xmlns,version,type}% list your attributes here
+}
+%%end XML hightlight
 
 \newcommand{\jl}{$\frac{}{}$} 
 
@@ -28,8 +54,8 @@
 \begin{frame}
 \frametitle{Caver Analyst}
 	\begin{itemize}
-		\item bioinformatický nástroj určený pro analýzu tunelôv v proteinech
-		\item široké využití v komunitě biochemikú a proteinových inženýrú 
+		\item bioinformatický nástroj určený pro analýzu tunelů v proteinech
+		\item široké využití v komunitě biochemiků a proteinových inženýrů 
 		\item grafická nadstavba výpočetního jádra Caver (Chovancová at el. 2012)
 		\item vlastní vizualizační jádro
 	\end{itemize}
@@ -45,7 +71,7 @@
 
 
 \begin{frame}
-\frametitle{Ciele}
+\frametitle{Cíle}
 	\begin{itemize}
 		\item uživatelská barevná schémata
 		\begin{itemize}
@@ -79,11 +105,11 @@
 \begin{frame}
 \frametitle{Proces vývoje}
 	\begin{itemize}
-		\item 21. 3. - stretnutie o možnostiach práce v Caveri a rozdelenie úloh
-		\item 22.3. - 11.4. - zorientovanie sa v Caveri a práca na vývoji
-		\item 12.4. - 20.4. - testovanie a drobné úpravy
-		\item 21.4. - 27.4. - dokončovanie dokumentácie a wiki stránok
-		\item 4.5. - predpokladané ukončenie práce na projekte
+		\item 21. 3. - střetnutí o možnostech práce na projektu Caver a rozdělení úloh
+		\item 22.3. - 11.4. - zorientovaní se v Caveru a práce na vývoji
+		\item 12.4. - 20.4. - testovaní a drobné úpravy
+		\item 21.4. - 27.4. - dokončovaní dokumentace a wiki
+		\item 4.5. - předpokládané ukončení práce na projekte
 	\end{itemize}
 \end{frame}
 
@@ -100,30 +126,49 @@
 \end{frame}
 
 \begin{frame}
-\frametitle{XML color schémy}
+\frametitle{XML color schéma}
 	\begin{itemize}
-		\item návrh reprezentácie farebných schém v XML
-		\item rodelenie default a user schém
-		\item ukládání schémat pomocí rozdílú
-		\item kontrolná XSD schéma
-		\item synchronizácia schém cez projektovú stránku
+		\item návrh reprezentace barevných schémat v XML
+		\item rozdělení default a user schémat
+		\item ukládání schémat pomocí rozdílů
+		\item kontrolní XSD schéma
+		\item synchronizace schémat přes projektovou stránku
 	\end{itemize}
 \end{frame}
 
-\begin{frame}
+\begin{frame}[fragile]
 \frametitle{XML color GUI}
-	\begin{itemize}
-		\item ukazka XML / XSD (TODO obrazok)
-	\end{itemize}
+	\lstset{language=XML}
+	\scriptsize{
+	\begin{lstlisting}
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+    Document   : colorSchemes.xml
+    Description: Native color schemes.
+-->
+<root xsi:noNamespaceSchemaLocation="company.xsd">
+    <scheme type="Atoms" strategy="Atom element" name="Default">
+        <color id="1" R="0.900" G="0.900" B="0.900"/>
+        <color id="2" R="0.851" G="1.000" B="1.000"/>
+    </scheme>
+    <scheme type="Residues" strategy="Residue type" name="Default" >  
+    </scheme>
+    <scheme type="Chains" strategy="Chain identifier" name="Default" >
+    </scheme>
+    <scheme type="Secondary structures" 
+	        strategy="Secondary structure type" name="CMY">
+    </scheme>
+</root>
+	\end{lstlisting}}
 \end{frame}
 
 \begin{frame}
 \frametitle{Color schémy GUI}
 	\begin{itemize}
 		\item implementoval Henrich Lauko
-		\item návrh uživatelského rozhrania
-		\item rozdelenie panelov do default a user profilov
-		\item riešený problém synchronizácie všetkých panelov pracujúcich s farebnými schémami
+		\item návrh uživatelského rozhraní
+		\item rozdělení panelů do default a user profilů
+		\item vyřešen problém synchronizace všech panelů pracujících s barevnými schématy
 	\end{itemize}
 \end{frame}
 
