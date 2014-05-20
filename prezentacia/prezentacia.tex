@@ -7,7 +7,7 @@
 
 \newcommand{\jl}{$\frac{}{}$} 
 
-\title{Caver XML projekt}
+\title{Caver Analyst XML projekt}
 \date{2014}
 \author{
 	Jan Štourač, Henrich Lauko, Jiří Novotný, Karel Kubíček
@@ -21,16 +21,17 @@
 \end{frame}
 
 \begin{frame}
-\frametitle{Caver}
+\frametitle{Caver Analyst}
 	\includegraphics[width=\linewidth]{caver_start.jpg}
 \end{frame}
 
 \begin{frame}
-\frametitle{Caver}
+\frametitle{Caver Analyst}
 	\begin{itemize}
-		\item nástroj pre biochemikov, určený na analýzu a vizualizáciu proteínov
-		\item hlavné využitie Caveru je počítanie tunelov v proteínoch
-		\item vizualizačné techniky
+		\item bioinformatický nástroj určený pro analýzu tunelôv v proteinech
+		\item široké využití v komunitě biochemikú a proteinových inženýrú 
+		\item grafická nadstavba výpočetního jádra Caver (Chovancová at el. 2012)
+		\item vlastní vizualizační jádro
 	\end{itemize}
 \end{frame}
 
@@ -46,29 +47,37 @@
 \begin{frame}
 \frametitle{Ciele}
 	\begin{itemize}
-		\item implementovať XML do Color modulu
-		\item efektívne reprezentovať farebné schémy
-		\item poskytnúť uživatelom prívetive rozhranie pre prácu so svojimi schémami 
-		\item úprava XML v globálnych nastaveniach Caveru
-	\end{itemize}
-\end{frame}
-
-\begin{frame}
-\frametitle{Organizácia projektu}
-	\begin{itemize}
-		\item Rozdelenie úloh:
+		\item uživatelská barevná schémata
 		\begin{itemize}
-			\item Color schemes backend - Jan Štourač
-			\item Color schemes GUI - Henrich Lauko
-			\item Color schemes XML structure and XSD - Karel Kubíček
-			\item Global settings - Jiří Novotný
+			\item efektivní ukládání schémat do XML souboru
+			\item podpora importu a exportu
+			\item přívětivé uživatelské rozhraní
 		\end{itemize}
-		\item Práca v projektovej Caver svn
+		\item úprava XML s globálním nastavením aplikace
 	\end{itemize}
 \end{frame}
 
 \begin{frame}
-\frametitle{Proces vývoja}
+\frametitle{Organizace projektu}
+	\begin{itemize}
+		\item Rozdělení úloh:
+		\begin{itemize}
+			\item Backend - Jan Štourač
+			\item GUI - Henrich Lauko
+			\item XML struktura a XSD - Karel Kubíček
+			\item Globální nastavení - Jiří Novotný
+		\end{itemize}
+		\item Využití interního svn repozitáře pro zdrojový kód
+		\item Wiki na github.com
+		\begin{itemize}
+			\item Zakomponováno do interní dokumentace
+		\end{itemize}
+		\item kód dokumentován pomocí JavaDoc
+	\end{itemize}
+\end{frame}
+
+\begin{frame}
+\frametitle{Proces vývoje}
 	\begin{itemize}
 		\item 21. 3. - stretnutie o možnostiach práce v Caveri a rozdelenie úloh
 		\item 22.3. - 11.4. - zorientovanie sa v Caveri a práca na vývoji
@@ -79,21 +88,23 @@
 \end{frame}
 
 \begin{frame}
-\frametitle{Color schémy backend}
+\frametitle{Backend}
 	\begin{itemize}
-		\item implementoval Jan Štourač
-		\item návrh a implementácia interfacu pre prácu s farebnými schémami
-		\item rozdelenie uživatelského a defaultneho rozhrania
-		\item notifikácie o zmenách v schémach
+		\item návrh a implementace API pro práci s barevnými schématy
+		\begin{itemize}
+			\item globální manažer schémat pro celou aplikaci
+		\end{itemize}
+		\item oddělení systémových a uživatelských schémat
+		\item notifikace o GUI při změnách
 	\end{itemize}
 \end{frame}
 
 \begin{frame}
 \frametitle{XML color schémy}
 	\begin{itemize}
-		\item implementoval Karel Kubíček
 		\item návrh reprezentácie farebných schém v XML
 		\item rodelenie default a user schém
+		\item ukládání schémat pomocí rozdílú
 		\item kontrolná XSD schéma
 		\item synchronizácia schém cez projektovú stránku
 	\end{itemize}
@@ -130,22 +141,18 @@
 \end{frame}
 
 \begin{frame}
-\frametitle{Dokumentácia projektu}
+\frametitle{Zhodnocení projektu}
 	\begin{itemize}
-		\item spracovaná vo projektovej wiki Caveru
-		\item prekopirované info na Git
-		\item spracovaná dokumentácia do JavaDocu(písané komentáre priamo v aplikácii) a DocBooku
-		\item latex prezentacia
-	\end{itemize}
-\end{frame}
-
-\begin{frame}
-\frametitle{Zhodnotenie vývoja}
-	\begin{itemize}
-		\item spracovaný funkčý Color modul s exportom a importom schém
-		\item sprístupnenie zdrojového xsd na stránkach Caveru pre verejnosť na tvorbu vlastných schém
-		\item zefektívnena práca medzi user a default schémami
-		\item opravená práca s configurčnými súbormi
+		\item vylepšená podpora barevných schémat
+		\item možnost importu a exportu uživatelsky definovaných schémat
+		\item zpřístupnění XSD souboru pro manuální validaci
+		\item nové přívětivé uživatelské rozhraní
+		\item snadná rozšiřitelnost aplikace o další barvitelné prvky
+		\begin{itemize}
+			\item jednoduše využitelné veřejné API
+			\item notifikace jednotlivých komponent
+		\end{itemize}
+		\item vylepšená správa globálního nastavení aplikace 
 	\end{itemize}
 \end{frame}
 
