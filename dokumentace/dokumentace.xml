@@ -109,8 +109,8 @@
 		All of this points were considered in designing of pannels. And GUI was formed to accomplish every of them in the way of simple and effective implementation behind of user interface.
 		</para>
 		<para>
-		Panel interface is divided in to more pannels, which are grouped defaultly in the right slope of the screen. Each of the panels meets the functionality of different coloring. Our project involves only 3 panels. Structure panel, which describes coloring of whole structure, and gives functionality to modify color schemes. Selection panel reduce color schemes application only on selected atoms. And last panel is used to modify background of scene. Currently there is developement on tunnel coloring panel, which extends funtionality on coloring tunnels in structure.		
-		</para>		
+		Panel interface is divided in to more pannels, which are grouped defaultly in the right slope of the screen. Each of the panels meets the functionality of different coloring. Our project involves only 3 panels. Structure panel, which describes coloring of whole structure, and gives functionality to modify color schemes. Selection panel reduce color schemes application only on selected atoms. And last panel is used to modify background of scene. Currently there is developement on tunnel coloring panel, which extends funtionality on coloring tunnels in structure.
+		</para>
 		<para>
 		In actual form of panels gives options to edit colors of specified atoms. Color schemes are hold in the application in the form of XML document, where each scheme holds information whether it is user defined scheme or default Caver Analyst scheme. Inteface refuses to give permission to modify default schemes in order to maintain the consistence of schemes through the applications.
 		</para>
@@ -118,13 +118,19 @@
 		Other main funcion of panels is to export and import schemes, where each user scheme can be exported into xml file and edited outside of the application. In order to preserve persistence of imported scheme data they are controlled agaist xsd scheme, which is publicly published on Caver Analyst web sites. In the situation that the user is importing schemes with same names as there are in the current application, user will be asked whether he would like to overwrite the schemes. If there occur a conflict between default scheme and imported scheme application refuses to import scheme and informs user about the problem.
 		</para>
 		<para>
-		Current import/export should give ability to maintain color schemes through larger projects, chemistry laboratories and scientific magazines. 
+		Current import/export should give ability to maintain color schemes through larger projects, chemistry laboratories and scientific magazines.
 		</para>
+		<figure>
+		<title>Default Caver Analyst user interface</title>
+			<imageobject>
+				<imagedata fileref="caver.png" width="6in" align="center" />
+			</imageobject>
+		</figure>
 		<para>
 		In the implementation the main problem was to design maintenance of the schemes through all of the panels. The problem was to refresh all panels when user chcanges scheme, that was load to more panels. Problem was solved simply with global scheme manager and listeners, which maintains all panels in actualized state. The solution is further described in backend documentation.
 		</para>
 		<para>
-		In order to maintain refactored and reusable code there was created DefaultColoringPanel, from which inherite all other ColoringPanels. Where every panel holds information about specific coloring strategies and color schemes assigned to them. 
+		In order to maintain refactored and reusable code there was created DefaultColoringPanel, from which inherite all other ColoringPanels. Where every panel holds information about specific coloring strategies and color schemes assigned to them.
 		</para>
 		<para>
 		Other componnents that GUI contains are save dialogs, color choosers and import/eport file choosers. The functionality of these windows was kept to lowest complexity to guarantee userfriendlines a effectivenes.
