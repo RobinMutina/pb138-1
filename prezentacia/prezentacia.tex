@@ -183,8 +183,36 @@
 \begin{frame}
 \frametitle{Global settings}
 	\begin{itemize}
-		\item Jirka slide
+		\item nastavení uloženo v settings.xml v user home složce
+		\item bugfix - nechtěné přepisování parametrů v nastavení při inicializaci programu
+		\item bugfix - znaková sada settings.xml
+		\item manuální editace souboru s nastavením => tvorba jeho XSD pro validaci
+		\item restrukturalizace settings.xml pro podporu XSD validace
 	\end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]
+	\frametitle{XML settings}
+	\lstset{language=XML}
+	\scriptsize{
+	\begin{lstlisting}
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+    Document   : settings.xml
+    Description: Global settings of Caver Analyst
+-->
+<configuration>
+  <entry key="CAVER_LOCALE">
+    <locale>en_US</locale>
+  </entry>
+  <entry key="INTERPOLATE_DYNAMICS_TUNNELS">
+    <boolean>false</boolean>
+  </entry>
+  <entry key="CAVER_COLORS_DIR">
+    <string>C:\Users\Tracko\caver\colors</string>
+  </entry>
+</configuration>
+	\end{lstlisting}}
 \end{frame}
 
 \begin{frame}
