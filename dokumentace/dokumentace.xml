@@ -139,7 +139,7 @@
 	</chapter>
 	<chapter id="Color Schemes backend">
 		<title>Backend</title>
-		<para>The main requirements for the color schemes backend were 
+		<para>The main requirements for the color schemes backend were
 		<itemizedlist>
 			<listitem>straightforward and easy access to all color schemes in application</listitem>
 			<listitem>good public API</listitem>
@@ -152,7 +152,7 @@
 		<section>
 		  <title>ColorSchemeManager</title>
 		  <para>
-		    This class servers as the main entrance to the whole color scheme management.  It provides the complete public API for the rest of the application, so for basic usage it is not neccessary to understand whole concept beyond color schemes. It is also implemented as <emphasis>singleton</emphasis> so there is only one manager for the application. This makes synchronization in case of change much easier and can prevent conflicts due to concurrent modification. ColorSchemeManager is mainly responsible for:
+		    This class serves as the main entrance to the whole color scheme management.  It provides the complete public API for the rest of the application, so for basic usage it is not neccessary to understand whole concept beyond color schemes. It is also implemented as <emphasis>singleton</emphasis> so there is only one manager for the application. This makes synchronization in case of change much easier and can prevent conflicts due to concurrent modification. ColorSchemeManager is mainly responsible for:
 		    <itemizedlist>
 		      <listitem>correct loading of system and user color schemes during application startup</listitem>
 		      <listitem>access to all available color schemes</listitem>
@@ -168,7 +168,9 @@
 	</chapter>
 	<chapter>
 		<title>XSD scheme</title>
-		<para>File colorSchemes.xsd in caver_analyst/color/resources.xml is responsible for correct save and load operation for user setting of coloring of molecule. Settings are available as coloring strategy and allows to color each element, group of elements or by electric charge and so.</para>
+		<para>File <code>colorSchemes.xsd</code> in <code>caver_analyst/color/resources.xml</code> is responsible for correct save and load operation for settings of coloring of molecule. Settings are available as coloring strategy and allows to color each element, group of elements or structures by electric charge and so.</para>
+		<para>User can use default color scheme, or can create his own. If he do so, we save just differences between default and user color scheme, which saves resources and also time, that would be consumed by creating whole new color scheme (user often wants to change just one thing to highlight one studied property).</para>
+		<para>Using XML for saving user color scheme also increase user friendliness of application. It's simpler to create new color scheme, and if you obtain interesting information, you can send colorSchemes.xml to other researchers to share, what have you seen.</para>
 		<para>File colorSchemes.xml contains these xml elements:
 			<itemizedlist>
 				<listitem>
@@ -179,6 +181,28 @@
 		</para>
 		<para>Attribute "strategy" is defined analogously as "type" and has its simple type "schemeStrategy". Attribute "name" speaks for itself. Users could create their own schema, which leads to creation of new tag <code><![CDATA[<scheme>]]></code> with selected type, strategy and name.</para>
 		<para>Each element <code><![CDATA[<scheme>]]></code> contains at least one element <code><![CDATA[<color>]]></code>. It has 4 attributes, each is required. First attribute "id" contains number of element or group of elements and is unique in <code><![CDATA[<scheme>]]></code>. Three others attributes represents RGB coloring of element. For each channel value 0 to 1 is allowed. Usually written with precision on 3 digits, but it is not strict.</para>
+		<para>Short sample of default scheme XML:
+<screen><![CDATA[
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+	Document   : colorSchemes.xml
+	Description: Native color schemes.
+-->
+<root xsi:noNamespaceSchemaLocation="company.xsd">
+	<scheme type="Atoms" strategy="Atom element" name="Default">
+		<color id="1" R="0.900" G="0.900" B="0.900"/>
+		<color id="2" R="0.851" G="1.000" B="1.000"/>
+	</scheme>
+	<scheme type="Residues" strategy="Residue type" name="Default" >
+	</scheme>
+	<scheme type="Chains" strategy="Chain identifier" name="Default" >
+	</scheme>
+	<scheme type="Secondary structures" strategy="Secondary structure type" name="CMY">
+	</scheme>
+</root>
+]]></screen></para>
+		<para>Besides the fact, that XSD file for validation is very strict, there is simple possibility of introduction new possibilities for coloring scheme. It is also allowed by documentation of XSD file, which is not so difficult to understand and extend. But actual version allows user many things, which can last sufficient for long time.</para>
+
 	</chapter>
 	<chapter id="configuration">
 		<title>Configuration module</title>
@@ -203,7 +227,7 @@
 		</para>
 		<para>This corrected structure allows to be XSD 1.0 specification created and to check the uniqueness of the keys.</para>
 		<para>In the final stage the XSD to XML settings file generated by Configuration module was made.</para>
-	</chapter>	
+	</chapter>
 	<chapter id="contributions">
 		<title>Contributions</title>
 		<para>List of commits made to project svn repository by our team:
@@ -214,7 +238,7 @@ color Javadoc comments
 ------------------------------------------------------------------------
 r1549 | xnovot31 | 2014-05-17 04:58:04 +0200 (Sat, 17 May 2014) | 1 line
 
-Bugfix related to rev. 1534 - Renderer - Gizmo transformation was causing 
+Bugfix related to rev. 1534 - Renderer - Gizmo transformation was causing
 unwanted camera rotation.
 ------------------------------------------------------------------------
 r1534 | xnovot31 | 2014-05-12 10:37:42 +0200 (Mon, 12 May 2014) | 1 line
@@ -249,8 +273,8 @@ Configuration module: Added xsd specification to settings.xml
 ------------------------------------------------------------------------
 r1486 | xnovot31 | 2014-04-27 23:07:53 +0200 (Sun, 27 Apr 2014) | 1 line
 
-Updated Configuration module. Changed internal design of settings.xml located 
-in CAVER_HOME_DIR/settings directory. After this update maybe it is necessary 
+Updated Configuration module. Changed internal design of settings.xml located
+in CAVER_HOME_DIR/settings directory. After this update maybe it is necessary
 to delete the xml file (by default it is located in /~/Caver/settings/settings.xml).
 ------------------------------------------------------------------------
 r1452 | xstoura1 | 2014-04-08 23:13:02 +0200 (Tue, 08 Apr 2014) | 2 lines
@@ -265,7 +289,7 @@ Removed unnecessary form XMLs.
 ------------------------------------------------------------------------
 r1449 | xstoura1 | 2014-04-08 22:28:01 +0200 (Tue, 08 Apr 2014) | 2 lines
 
-Color schemes extracted from controller to own service. Color is immutable. 
+Color schemes extracted from controller to own service. Color is immutable.
 DefaultColoringPanel - remove code duplication.
 
 ------------------------------------------------------------------------
