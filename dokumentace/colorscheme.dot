@@ -1,0 +1,11 @@
+digraph {
+	1[label="color scheme"];
+	2[label="ancestor"];
+	3[label="getColorDifferences()"];
+	4[label="getColors()"];
+
+	{rank = same; 1->2[style=dotted]; }
+	1->3[label="color differences"];	1->4[label="color differences"]; 	2->4[label="colors"];
+
+
+}

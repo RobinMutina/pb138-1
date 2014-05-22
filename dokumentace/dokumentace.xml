@@ -139,7 +139,7 @@
 	</chapter>
 	<chapter id="Color Schemes backend">
 		<title>Backend</title>
-		<para>The main requirements for the color schemes backend were
+		<para>Main requirements for the color schemes backend were
 		<itemizedlist>
 			<listitem>straightforward and easy access to all color schemes in application</listitem>
 			<listitem>good public API</listitem>
@@ -147,12 +147,12 @@
 			<listitem>same color schemes in the whole application</listitem>
 			<listitem>support for user defined color schemes</listitem>
 		</itemizedlist>
-		These requirements were kept in mind during development process. The main entrance to whole color scheme management is now in singleton class <code>ColorSchemeManager</code>.
+		These requirements were kept in mind during development process. The basic component of color scheme management is class <code>ColorSchemeManager</code>.
 		</para>
 		<section>
 		  <title>ColorSchemeManager</title>
 		  <para>
-		    This class serves as the main entrance to the whole color scheme management.  It provides the complete public API for the rest of the application, so for basic usage it is not neccessary to understand whole concept beyond color schemes. It is also implemented as <emphasis>singleton</emphasis> so there is only one manager for the application. This makes synchronization in case of change much easier and can prevent conflicts due to concurrent modification. ColorSchemeManager is mainly responsible for:
+		    This class serves as the main entrance to the color scheme management. It provides the complete public API for other components of the application, so for basic usage it is not neccessary to understand whole concept beyond color schemes. It is also implemented as <emphasis>singleton</emphasis> so there is only one manager for the application. This makes synchronization in case of change much easier and can prevent conflicts due to concurrent modification. ColorSchemeManager is mainly responsible for:
 		    <itemizedlist>
 		      <listitem>correct loading of system and user color schemes during application startup</listitem>
 		      <listitem>access to all available color schemes</listitem>
@@ -164,6 +164,18 @@
 		  <para>
 		    One feature of manager is also supports for event when color scheme is created, modified or deleted. When something happens, listening components of application get notification about the change. This makes cooperation with the rest of application (especially GUI) much more easier. Listener is available as class <code>ColorSchemeListener</code>.
 		  </para>
+		</section>
+		<section>
+		  <title>ColorScheme</title>
+		  <para>
+				This class represents one color scheme. It is designed to be immutable - because of possible problems witch change propagation through the app. ColorScheme concept is built on color differences. Each scheme can have one ancestor (usually default scheme for strategy and type) which provides all possible colors. The scheme itself keeps only differences against ancestor. This brings better management of schemes and lower memory consumption. But from the view of user the color scheme provides all colors together, so there should not be a problem with usability [fig. 4.1].
+		  </para>
+		  <figure id="origin">
+				<title>Colors origin</title>
+				<imageobject>
+					<imagedata fileref="colorscheme.png" width="4in" align="center" />
+				</imageobject>
+			</figure>
 		</section>
 	</chapter>
 	<chapter>
@@ -342,7 +354,7 @@ XSD for coloring schema done
 ------------------------------------------------------------------------
 ]]></screen>
       </para>
-      <para>Patch for each is available on request.</para>
+      <para>Patch for each commit is available on request.</para>
     </chapter>
 </book>
 
