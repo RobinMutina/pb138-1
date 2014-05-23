@@ -31,7 +31,7 @@
 }
 %%end XML hightlight
 
-\newcommand{\jl}{$\frac{}{}$} 
+\newcommand{\jl}{$\frac{}{}$}
 
 \title{Caver Analyst XML projekt}
 \date{2014}
@@ -48,21 +48,16 @@
 
 \begin{frame}
 \frametitle{Caver Analyst}
-	\includegraphics[width=\linewidth]{caver_start.jpg}
-\end{frame}
-
-\begin{frame}
-\frametitle{Caver Analyst}
 	\begin{itemize}
 		\item bioinformatický nástroj určený pro analýzu tunelů v proteinech
-		\item široké využití v komunitě biochemiků a proteinových inženýrů 
+		\item široké využití v komunitě biochemiků a proteinových inženýrů
 		\item grafická nadstavba výpočetního jádra Caver (Chovancová at el. 2012)
 		\item vlastní vizualizační jádro
 	\end{itemize}
 \end{frame}
 
 \begin{frame}
-\frametitle{Caver Application}
+\frametitle{Caver Analyst}
 	\begin{center}
 		\includegraphics[width=\linewidth]{caver.png}
 	\end{center}
@@ -103,8 +98,8 @@
 \begin{frame}
 \frametitle{Proces vývoje}
 	\begin{itemize}
-		\item 21. 3. - střetnutí o možnostech práce na projektu Caver a rozdělení úloh
-		\item 22.3. - 20.4. - zorientovaní se v Caveru a práce na vývoji
+		\item 21. 3. - setkání o možnostech práce na projektu a rozdělení úloh
+		\item 22.3. - 20.4. - orientace ve zdrojovém kódu a vývoj
 		\item 21.4. - 4.5. - testovaní a drobné úpravy
 		\item 5.4. - 22.5. - rozpracovaná verze dokumentace
 		\item 22.5. - finalizace a prezentace projektu
@@ -117,6 +112,10 @@
 		\item návrh a implementace API pro práci s barevnými schématy
 		\begin{itemize}
 			\item globální manažer schémat pro celou aplikaci
+			\item načítání schémat po startu
+			\item import/export schémat
+			\item automatické ukládání uživatelských schémat
+			\item API pro zbytek aplikace
 		\end{itemize}
 		\item oddělení systémových a uživatelských schémat
 		\item notifikace o GUI při změnách
@@ -149,11 +148,11 @@
         <color id="1" R="0.900" G="0.900" B="0.900"/>
         <color id="2" R="0.851" G="1.000" B="1.000"/>
     </scheme>
-    <scheme type="Residues" strategy="Residue type" name="Default" >  
+    <scheme type="Residues" strategy="Residue type" name="Default" >
     </scheme>
     <scheme type="Chains" strategy="Chain identifier" name="Default" >
     </scheme>
-    <scheme type="Secondary structures" 
+    <scheme type="Secondary structures"
 	        strategy="Secondary structure type" name="CMY">
     </scheme>
 </root>
@@ -161,7 +160,7 @@
 \end{frame}
 
 \begin{frame}
-\frametitle{Color schémy GUI}
+\frametitle{Grafické rozhraní}
 	\begin{itemize}
 		\item návrh panelů pro práci so schémami
 		\begin{itemize}
@@ -175,8 +174,8 @@
 \end{frame}
 
 \begin{frame}
-\frametitle{Color schémy GUI}
-	\frametitle{Color schémy GUI}
+\frametitle{Grafické rozhraní}
+	\frametitle{Grafické rozhraní}
 	\includegraphics[width=\linewidth]{colorpanel.jpg}
 \end{frame}
 
@@ -227,7 +226,7 @@
 			\item jednoduše využitelné veřejné API
 			\item notifikace jednotlivých komponent
 		\end{itemize}
-		\item vylepšená správa globálního nastavení aplikace 
+		\item vylepšená správa globálního nastavení aplikace
 	\end{itemize}
 \end{frame}
 
